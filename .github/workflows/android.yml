@@ -30,9 +30,16 @@ jobs:
 
       - name: Configure Android export tools
         run: |
+          apt-get update
+          apt-get install -y openjdk-17-jdk
+          JAVA_BIN="$(readlink -f "$(command -v javac)")"
+          JAVA_HOME="$(dirname "$(dirname "$JAVA_BIN")")"
+          export JAVA_HOME
+          test -x "$JAVA_HOME/bin/javac"
           echo "HOME=$HOME"
           echo "ANDROID_HOME=$ANDROID_HOME"
           echo "JAVA_HOME=$JAVA_HOME"
+          echo "JAVAC=$JAVA_BIN"
           command -v java
           command -v keytool
           mkdir -p "$HOME/.config/godot"
