@@ -68,7 +68,9 @@ jobs:
         run: godot --headless --path . --export-debug "Android" build/LifeTycoon3D-debug.apk --verbose
 
       - name: Verify APK
-        run: test -s build/LifeTycoon3D-debug.apk
+        run: |
+          test -s build/LifeTycoon3D-debug.apk
+          jarsigner -verify build/LifeTycoon3D-debug.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
